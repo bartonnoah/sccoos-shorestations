@@ -1,0 +1,14 @@
+prefix=/Users/noahbarton/Library/CloudStorage/OneDrive-UCSanDiego/SCCOOS/SCCOOS-shorestations/n_obs/env
+exec_prefix=/Users/noahbarton/Library/CloudStorage/OneDrive-UCSanDiego/SCCOOS/SCCOOS-shorestations/n_obs/env
+libdir=/Users/noahbarton/Library/CloudStorage/OneDrive-UCSanDiego/SCCOOS/SCCOOS-shorestations/n_obs/env/lib
+includedir=/Users/noahbarton/Library/CloudStorage/OneDrive-UCSanDiego/SCCOOS/SCCOOS-shorestations/n_obs/env/include
+
+Name: FreeType 2
+URL: https://freetype.org
+Description: A free, high-quality, and portable font engine.
+Version: 24.3.18
+Requires: 
+Requires.private: 
+Libs: -L/Users/noahbarton/Library/CloudStorage/OneDrive-UCSanDiego/SCCOOS/SCCOOS-shorestations/n_obs/env/lib -lfreetype
+Libs.private: -lz -L/Users/noahbarton/Library/CloudStorage/OneDrive-UCSanDiego/SCCOOS/SCCOOS-shorestations/n_obs/env/lib -lpng16 -lz
+Cflags: -I${includedir}/freetype2

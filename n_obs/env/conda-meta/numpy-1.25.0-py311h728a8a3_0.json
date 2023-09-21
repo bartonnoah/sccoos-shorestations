@@ -1,0 +1,40 @@
+{
+  "build": "py311h728a8a3_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/osx-64",
+  "constrains": [],
+  "depends": [
+    "blas 1.0 mkl",
+    "libcxx >=14.0.6",
+    "mkl >=2023.1.0,<2024.0a0",
+    "mkl-service >=2.3.0,<3.0a0",
+    "mkl_fft",
+    "mkl_random",
+    "numpy-base 1.25.0 py311h53bf9ac_0",
+    "python >=3.11,<3.12.0a0"
+  ],
+  "extracted_package_dir": "/Users/noahbarton/miniconda3/pkgs/numpy-1.25.0-py311h728a8a3_0",
+  "files": [],
+  "fn": "numpy-1.25.0-py311h728a8a3_0.conda",
+  "legacy_bz2_md5": "299ddf608884f053a980aaef5877a7af",
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "link": {
+    "source": "/Users/noahbarton/miniconda3/pkgs/numpy-1.25.0-py311h728a8a3_0",
+    "type": 1
+  },
+  "md5": "c8cdd80c9a8d74f53fb9d45b2a429a82",
+  "name": "numpy",
+  "package_tarball_full_path": "/Users/noahbarton/miniconda3/pkgs/numpy-1.25.0-py311h728a8a3_0.conda",
+  "paths_data": {
+    "paths": [],
+    "paths_version": 1
+  },
+  "requested_spec": "None",
+  "sha256": "9e1bc297e74417ab1f97dcd4e0e157f103ebdb69dce834fdbf3f68db2292f267",
+  "size": 13708,
+  "subdir": "osx-64",
+  "timestamp": 1687471683861,
+  "url": "https://repo.anaconda.com/pkgs/main/osx-64/numpy-1.25.0-py311h728a8a3_0.conda",
+  "version": "1.25.0"
+}

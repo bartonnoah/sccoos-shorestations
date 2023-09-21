@@ -1,0 +1,13 @@
+prefix=/Users/noahbarton/Library/CloudStorage/OneDrive-UCSanDiego/SCCOOS/SCCOOS-shorestations/n_obs/env
+exec_prefix=/Users/noahbarton/Library/CloudStorage/OneDrive-UCSanDiego/SCCOOS/SCCOOS-shorestations/n_obs/env
+libdir=/Users/noahbarton/Library/CloudStorage/OneDrive-UCSanDiego/SCCOOS/SCCOOS-shorestations/n_obs/env/lib
+sharedlibdir=/Users/noahbarton/Library/CloudStorage/OneDrive-UCSanDiego/SCCOOS/SCCOOS-shorestations/n_obs/env/lib
+includedir=/Users/noahbarton/Library/CloudStorage/OneDrive-UCSanDiego/SCCOOS/SCCOOS-shorestations/n_obs/env/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.13
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}

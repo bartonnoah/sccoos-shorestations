@@ -1,0 +1,5 @@
+#!/Users/noahbarton/Library/CloudStorage/OneDrive-UCSanDiego/SCCOOS/SCCOOS-shorestations/interactive_map/env/bin/python3.11
+
+from idlelib.pyshell import main
+if __name__ == '__main__':
+    main()
