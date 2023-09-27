@@ -5,23 +5,24 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def count_nobs(station, mode, *filenames):
-    if station == 'trinidad': #Special case: Trinidad Beach & Bay needs to read 2 files
+    if station == 'Trinidad Beach & Bay': #Special case: Trinidad Beach & Bay needs to read 2 files
         obs_count = 0
         for filename in filenames:
             skiprows = skip_rows(filename)
-            df = pd.read_excel(filename, skiprows=skiprows)
-            obs_count += np.count_nonzero(~np.isnan(df.SURF_TEMP_C.values))
-    elif station == 'scripps': #Special case: Scripps Pier has SST and SBT
-        df = pd.read_csv(filenames[0], skiprows=skiprows)
+            df = pd.read_csv(filenames[0], usecols = ['SURF_TEMP_C','MONTH','DAY'])
+            obs_count += df.shape[0]
+    elif station == 'Scripps Pier': #Special case: Scripps Pier has SST and SBT
+        skiprows = skip_rows(filenames[0])
+        df = pd.read_csv(filenames[0], usecols = ['SURF_TEMP_C','MONTH','DAY'])
         if mode == 'SST':
-            obs_count = np.count_nonzero(~np.isnan(df.SURF_TEMP_C.values))
+            obs_count = df.shape[0]
         elif mode == 'SBT':
             obs_count = np.count_nonzero(~np.isnan(df.BOT_TEMP_C.values))
     else: #normal cases
         skip_rows = skip_rows(filenames[0])
-        df = pd.read_excel(filenames[0], skiprows=skip_rows)
+        df = pd.read_csv(filenames[0], usecols = ['SURF_TEMP_C','MONTH','DAY'])
         obs_count = df.shape[0]
-    return [str(obs_count), station+mode]
+    return [str(obs_count), station]
 
 def draw_nobs(nobs):
     obs_count = nobs[0]
@@ -38,7 +39,7 @@ def draw_nobs(nobs):
 
     plt.axis('off')
 
-    plt.annotate(obs_count[0:2]+','+obs_count[2:], fontsize = 85, c='hotpink', xy=(.1,.9), xycoords="axes fraction")
+    plt.annotate(obs_count[0:2]+','+obs_count[2:], fontsize = 85, c='hotpink', xy=(.1,.9), xycoords="axes fraction") #TODO Change to hot pink
     filename = station+'.png'
     plt.savefig(filename, bbox_inches='tight', dpi=400)
     
@@ -47,7 +48,7 @@ def draw_nobs(nobs):
     cropped = uncropped.crop(image_box)
     cropped.save(filename)
 
-scripps_SST = count_nobs('scripps', 'SST', 'data/')
+scripps_SST = count_nobs('scripps', 'SST', 'TODO ADD FILE')
 scripps_SBT = count_nobs('scripps', 'SBT', 'TODO ADD FILE')
 san_clemente = count_nobs('san_clemente', 'SST', 'TODO ADD FILE')
 newport = count_nobs('newport', 'SST', 'TODO ADD FILE')
