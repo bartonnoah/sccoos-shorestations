@@ -10,18 +10,18 @@ def count_nobs(station, mode, *filenames):
         for filename in filenames:
             skiprows = skip_rows(filename)
             df = pd.read_csv(filenames[0], usecols = ['SURF_TEMP_C','MONTH','DAY'])
-            obs_count += df.shape[0]
+            obs_count += np.count_nonzero(~np.isnan(df.SURF_TEMP_C.values))
     elif station == 'Scripps Pier': #Special case: Scripps Pier has SST and SBT
         skiprows = skip_rows(filenames[0])
-        df = pd.read_csv(filenames[0], usecols = ['SURF_TEMP_C','MONTH','DAY'])
+        df = pd.read_csv(filenames[0], usecols = ['SURF_TEMP_C','BOT_TEMP_C', 'MONTH','DAY'])
         if mode == 'SST':
-            obs_count = df.shape[0]
+            obs_count = np.count_nonzero(~np.isnan(df.SURF_TEMP_C.values))
         elif mode == 'SBT':
             obs_count = np.count_nonzero(~np.isnan(df.BOT_TEMP_C.values))
     else: #normal cases
         skip_rows = skip_rows(filenames[0])
         df = pd.read_csv(filenames[0], usecols = ['SURF_TEMP_C','MONTH','DAY'])
-        obs_count = df.shape[0]
+        obs_count = np.count_nonzero(~np.isnan(df.SURF_TEMP_C.values))
     return [str(obs_count), station]
 
 def draw_nobs(nobs):
