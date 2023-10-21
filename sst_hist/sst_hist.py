@@ -32,17 +32,17 @@ months = {1: 'Jan', 2: 'Feb', 3: 'Mar',
 def trivia_msg(climatology, today_sst, day, month):
     trivia_msg = None
     if today_sst > climatology.SURF_TEMP_C.mean():
-        trivia_msg = 'Today is warmer than the average \n of all ' + months[month] + ' ' + str(int(day)) + suffix(day) + 's, but not by much.' #TODO implement  std gate
+        trivia_msg = 'This temperature is warmer than the average \n of all ' + months[month] + ' ' + str(int(day)) + suffix(day) + 's, but not by much.'
     elif today_sst < climatology.SURF_TEMP_C.mean():
-        trivia_msg = 'Today is cooler than the average \n of all ' + months[month] + ' ' + str(int(day)) + suffix(day) + 's, but not by much.'
-    if today_sst > np.nanpercentile(climatology.SURF_TEMP_C.values,90): #How do you define a MHW day? Also np.percentile assumes a normal distribution I think
-        trivia_msg = 'Today is among the hottest 10% \nof ' + months[month] + ' ' + str(int(day)) + suffix(day) + 's on record.'
-    if today_sst < np.nanpercentile(climatology.SURF_TEMP_C.values,10): #How do you define a MHW day? Also np.percentile assumes a normal distribution I think
-        trivia_msg = 'Today is among the coldest 10% \nof ' + months[month] + ' ' + str(int(day)) + suffix(day) + 's on record.'
+        trivia_msg = 'This temperature is cooler than the average \n of all ' + months[month] + ' ' + str(int(day)) + suffix(day) + 's, but not by much.'
+    if today_sst > np.nanpercentile(climatology.SURF_TEMP_C.values,90):
+        trivia_msg = 'This temperature is among the hottest 10% \nof ' + months[month] + ' ' + str(int(day)) + suffix(day) + 's on record.'
+    if today_sst < np.nanpercentile(climatology.SURF_TEMP_C.values,10): 
+        trivia_msg = 'This temperature is among the coldest 10% \nof ' + months[month] + ' ' + str(int(day)) + suffix(day) + 's on record.'
     if today_sst >= climatology.SURF_TEMP_C.max():
-        trivia_msg = 'Today is the hottest \n' + months[month] + ' ' + str(int(day)) + suffix(day) + ' on record.'
+        trivia_msg = 'This temperature is the hottest \n' + months[month] + ' ' + str(int(day)) + suffix(day) + ' on record.'
     elif today_sst <= climatology.SURF_TEMP_C.min():
-        trivia_msg = 'Today is the coldest \n' + months[month] + ' ' + str(int(day)) + suffix(day) + ' on record.'
+        trivia_msg = 'This temperature is the coldest \n' + months[month] + ' ' + str(int(day)) + suffix(day) + ' on record.'
     return trivia_msg
 
 def sst_hist(sst_filename, location):
@@ -74,7 +74,7 @@ def sst_hist(sst_filename, location):
     right = xlim[1]
     y_range = top - bottom
     temp_label_x = today_sst + 0.2 if today_sst > mean else today_sst - 0.3
-    plt.text(temp_label_x, top - y_range * 0.4, "Today's Temperature", rotation =90)
+    plt.text(temp_label_x, top - y_range * 0.4, "Latest Temperature", rotation =90)
     plt.text(mean - 0.3, bottom + 0.4, "Average SST", c='#404040', rotation =90)
     plt.xlabel('Temperature (ºC)')
     plt.gca().axes.get_yaxis().set_visible(False)
@@ -91,15 +91,26 @@ def sst_hist(sst_filename, location):
     for c, p in zip(col, patches):
         plt.setp(p, 'facecolor', cm(c))
         
-    fig_filename = 'sst_hist'+str(day)+str(month)+location.replace(' ', '_')+".png"
+    fig_filename = 'sst_hist_'+location.replace(' ', '_')+".png"
     plt.savefig(fig_filename)
     plt.show()
 
 sst_filename='SIO_TEMP_20230105.csv'
 location = 'SIO Pier'
 
-stations = (('SIO_TEMP_20230105.csv', 'SIO Pier'),
-            ('TODO', 'San Clemente Pier'),
-            ('TODO', 'Trinidad Beach')) #TODO Add the rest
+data_dir = "ELENA TODO" #e.x. '/Users/noahbarton/Documents/shorestations_nonQCed/
+stations = (("non-QC'd SIO Shore Station Data.csv", 'SIO Pier'),
+            ("non-QC'd San Clemente Shore Station Data.csv", 'San Clemente'),
+            ("non-QC'd Newport Beach Shore Station Data.csv", 'Newport Beach'),
+            ("non-QC'd Zuma Beach Shore Station Data.csv", 'Zuma Beach'),
+            ("non-QC'd Santa Barbara Shore Station Data.csv", 'Santa Barbara'),
+            ("non-QC'd Granite Canyon Station Data.csv", 'Granite Canyon'),
+            ("non-QC'd Pacific Grove Station Data.csv", 'Pacific Grove'),
+            ("non-QC'd Farallon Staion Data.csv", 'SE Farallon Island'),
+            ("non-QC'd Trinidad Beach Data.csv", 'Trinidad Beach'),
+            ("non-QC'd Trinidad Bay Data.csv", 'Trinidad Bay'))
+
+'''
 for station in stations:
-    sst_hist(station[0], station[1])
+    sst_hist(data_dir+station[0], station[1])
+'''
