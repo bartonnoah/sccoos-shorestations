@@ -95,9 +95,6 @@ def sst_hist(sst_filename, location):
     plt.savefig(fig_filename)
     plt.show()
 
-sst_filename='SIO_TEMP_20230105.csv'
-location = 'SIO Pier'
-
 data_dir = "ELENA TODO" #e.x. '/Users/noahbarton/Documents/shorestations_nonQCed/
 stations = (("non-QC'd SIO Shore Station Data.csv", 'SIO Pier'),
             ("non-QC'd San Clemente Shore Station Data.csv", 'San Clemente'),
@@ -110,7 +107,5 @@ stations = (("non-QC'd SIO Shore Station Data.csv", 'SIO Pier'),
             ("non-QC'd Trinidad Beach Data.csv", 'Trinidad Beach'),
             ("non-QC'd Trinidad Bay Data.csv", 'Trinidad Bay'))
 
-'''
 for station in stations:
     sst_hist(data_dir+station[0], station[1])
-'''
