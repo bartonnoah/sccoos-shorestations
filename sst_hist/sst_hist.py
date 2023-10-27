@@ -29,11 +29,11 @@ months = {1: 'Jan', 2: 'Feb', 3: 'Mar',
           7: 'Jul', 8: 'Aug', 9: 'Sep', 
           10:'Oct', 11:'Nov', 12:'Dec'}
 
-def trivia_msg(climatology, today_sst, day, month):
+def trivia_msg(climatology, today_sst, day, month): #TODO implement color by method
     trivia_msg = None
-    if today_sst > climatology.SURF_TEMP_C.mean():
+    if today_sst > climatology.SURF_TEMP_C.mean(): #make light red
         trivia_msg = 'This temperature is warmer than the average \n of all ' + months[month] + ' ' + str(int(day)) + suffix(day) + 's, but not by much.'
-    elif today_sst < climatology.SURF_TEMP_C.mean():
+    elif today_sst < climatology.SURF_TEMP_C.mean(): #make light blu
         trivia_msg = 'This temperature is cooler than the average \n of all ' + months[month] + ' ' + str(int(day)) + suffix(day) + 's, but not by much.'
     if today_sst > np.nanpercentile(climatology.SURF_TEMP_C.values,90):
         trivia_msg = 'This temperature is among the hottest 10% \nof ' + months[month] + ' ' + str(int(day)) + suffix(day) + 's on record.'
@@ -45,7 +45,7 @@ def trivia_msg(climatology, today_sst, day, month):
         trivia_msg = 'This temperature is the coldest \n' + months[month] + ' ' + str(int(day)) + suffix(day) + ' on record.'
     return trivia_msg
 
-def sst_hist(sst_filename, location):
+def sst_hist(sst_filename, location): #make Scripps SBT
     all_sst = pd.read_csv(sst_filename, usecols = ['SURF_TEMP_C','MONTH','DAY','YEAR'])
     last = all_sst.iloc[-1,:]
     day = last.DAY
@@ -92,8 +92,10 @@ def sst_hist(sst_filename, location):
         plt.setp(p, 'facecolor', cm(c))
         
     fig_filename = 'sst_hist_'+location.replace(' ', '_')+".png"
+    plt.tight_layout()
     plt.savefig(fig_filename)
-    plt.show()
+    plt.clf()
+
 
 data_dir = "ELENA TODO" #e.x. '/Users/noahbarton/Documents/shorestations_nonQCed/
 stations = (("non-QC'd SIO Shore Station Data.csv", 'SIO Pier'),
