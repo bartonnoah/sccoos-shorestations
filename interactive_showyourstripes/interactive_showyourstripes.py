@@ -10,7 +10,7 @@ import re
 c_to_f = lambda c :(9/5)*c + 32
 
 stations = {'Scripps Pier': {'savename': 'SIO',
-                             'data': '../data/SIO_TEMP_20230501.xls',
+                             'data': '../data/SIO_TEMP_20230501.xls', #TODO make this csv
                              'special_case': False}} #TODO Elena update w/ paths
 
 def interactive_showyourstripes(nice_name, savename, data_filepath, special_case):
@@ -24,7 +24,7 @@ def interactive_showyourstripes(nice_name, savename, data_filepath, special_case
             -2nd column is month
             -3rd column is day
             -6th column is sea surface temperature
-            -47 row header
+            -47 row header #TODO header will change length, handle case
         special_case: switch to implement special cases (not yet implemented)
     """
     if special_case:
@@ -111,11 +111,20 @@ def interactive_showyourstripes(nice_name, savename, data_filepath, special_case
         secondary_y=True)
 
     fig.update_layout(title_text='Interannual Sea Surface Temperature Trends at '+nice_name,
-        hovermode='x unified',
-        plot_bgcolor='white')
-    fig.update_xaxes(dict(title='Year', range=[climatology.year.min(), climatology.year.max()], showgrid=False))
-    fig.update_yaxes(dict(title='Sea Surface Temperature (°C)', range=[climatology[('sst','mean')].min() - 0.5, climatology[('sst','mean')].max() + 0.5], showgrid=False, side='left'), secondary_y=False)
-    fig.update_yaxes(dict(title='Sea Surface Temperature (°F)', range=[c_to_f(climatology[('sst','mean')].min() - 0.5), c_to_f(climatology[('sst','mean')].max() + 0.5)], showgrid=False, side='right'), secondary_y=True)
+                      title_font=dict(size=24),
+                      hovermode='x unified',
+                      plot_bgcolor='white')
+    fig.update_xaxes(dict(title='Year', title_font=dict(size=16), 
+                          range=[climatology.year.min(), climatology.year.max()], 
+                          showgrid=False, tickfont=dict(size=16)))
+    fig.update_yaxes(dict(title='Sea Surface Temperature (°C)', title_font=dict(size=16), 
+                          range=[climatology[('sst','mean')].min() - 0.5, climatology[('sst','mean')].max() + 0.5], 
+                          showgrid=False, side='left'), 
+                          secondary_y=False, tickfont=dict(size=16), dtick=0.5)
+    fig.update_yaxes(dict(title='Sea Surface Temperature (°F)', title_font=dict(size=16), 
+                          range=[c_to_f(climatology[('sst','mean')].min() - 0.5), c_to_f(climatology[('sst','mean')].max() + 0.5)], 
+                          showgrid=False, side='right'), secondary_y=True, tickfont=dict(size=16))
+    
     pio.write_html(fig, './fig/interactive_showyourstripes_' + savename + '.html')
 
 for key, item in stations.items():
